@@ -171,3 +171,6 @@ C:\Users\ADMIN\source\repos\RestaurantAPI\RestaurantAPI\bin\Debug\net9.0\nlog.co
 C:\Users\ADMIN\source\repos\RestaurantAPI\RestaurantAPI\bin\Debug\net9.0\NLog.dll
 C:\Users\ADMIN\source\repos\RestaurantAPI\RestaurantAPI\bin\Debug\net9.0\NLog.Extensions.Logging.dll
 C:\Users\ADMIN\source\repos\RestaurantAPI\RestaurantAPI\bin\Debug\net9.0\NLog.Web.AspNetCore.dll
+C:\Users\ADMIN\source\repos\RestaurantAPI\RestaurantAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\ADMIN\source\repos\RestaurantAPI\RestaurantAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\ADMIN\source\repos\RestaurantAPI\RestaurantAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll

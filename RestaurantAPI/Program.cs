@@ -2,6 +2,7 @@ using NLog;
 using NLog.Web;
 using RestaurantAPI;
 using RestaurantAPI.Entities;
+using RestaurantAPI.Middleware;
 using RestaurantAPI.Services;
 
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
@@ -22,8 +23,13 @@ try
     builder.Services.AddScoped<RestaurantSeeder>();
     builder.Services.AddAutoMapper(typeof(RestaurantMappingProfile));
     builder.Services.AddScoped<IRestaurantService, RestaurantService>();
+    builder.Services.AddScoped<ErrorHandlingMiddleware>();
+    builder.Services.AddScoped<RequestTimeMiddleware>();
+    builder.Services.AddSwaggerGen();
 
     var app = builder.Build();
+
+    
 
     // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())
@@ -33,6 +39,10 @@ try
     using var scope = app.Services.CreateScope();
     var seeder = scope.ServiceProvider.GetRequiredService<RestaurantSeeder>();
 
+    app.UseMiddleware<ErrorHandlingMiddleware>();
+    app.UseMiddleware<RequestTimeMiddleware>();
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RestaurantAPI v1"));
     app.UseHttpsRedirection();
 
     app.UseAuthorization();
