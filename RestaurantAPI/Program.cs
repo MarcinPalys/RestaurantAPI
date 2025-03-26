@@ -25,6 +25,7 @@ try
     builder.Services.AddScoped<IRestaurantService, RestaurantService>();
     builder.Services.AddScoped<ErrorHandlingMiddleware>();
     builder.Services.AddScoped<RequestTimeMiddleware>();
+    builder.Services.AddScoped<IDishService, DishService>();
     builder.Services.AddSwaggerGen();
 
     var app = builder.Build();
