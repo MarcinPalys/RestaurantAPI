@@ -174,3 +174,7 @@ C:\Users\ADMIN\source\repos\RestaurantAPI\RestaurantAPI\bin\Debug\net9.0\NLog.We
 C:\Users\ADMIN\source\repos\RestaurantAPI\RestaurantAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\ADMIN\source\repos\RestaurantAPI\RestaurantAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\ADMIN\source\repos\RestaurantAPI\RestaurantAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\ADMIN\source\repos\RestaurantAPI\RestaurantAPI\bin\Debug\net9.0\FluentValidation.dll
+C:\Users\ADMIN\source\repos\RestaurantAPI\RestaurantAPI\bin\Debug\net9.0\FluentValidation.AspNetCore.dll
+C:\Users\ADMIN\source\repos\RestaurantAPI\RestaurantAPI\bin\Debug\net9.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\ADMIN\source\repos\RestaurantAPI\RestaurantAPI\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

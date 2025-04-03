@@ -7,6 +7,9 @@ namespace RestaurantAPI.Entities
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Dish> Dishes { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<User> Users { get; set; }
+
         private string _connectionString = "Server=localhost\\SQLEXPRESS;Database=RestaurantDb;Trusted_Connection=True;TrustServerCertificate=True";
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,6 +30,14 @@ namespace RestaurantAPI.Entities
             modelBuilder.Entity<Address>()
                .Property(s => s.Street)
                .HasMaxLength(50);
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.Email)
+                .IsRequired();
+
+            modelBuilder.Entity<Role>()
+                .Property(u => u.Name)
+                .IsRequired();
 
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

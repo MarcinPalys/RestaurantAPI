@@ -1,5 +1,37 @@
 [
   {
+    "ContainingType": "RestaurantAPI.Controllers.AccountController",
+    "Method": "Login",
+    "RelativePath": "api/account/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "RestaurantAPI.Models.LoginDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "RestaurantAPI.Controllers.AccountController",
+    "Method": "RegisterUser",
+    "RelativePath": "api/account/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "RestaurantAPI.Models.RegisterUserDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "RestaurantAPI.Controllers.RestaurantController",
     "Method": "CreateRestaurant",
     "RelativePath": "api/restaurant",
@@ -97,6 +129,22 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "RestaurantAPI.Controllers.DishController",
+    "Method": "Delete",
+    "RelativePath": "api/restaurant/{restaurantId}/dish",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "restaurantId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "RestaurantAPI.Controllers.DishController",

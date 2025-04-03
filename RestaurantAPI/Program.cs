@@ -1,21 +1,48 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 using NLog;
 using NLog.Web;
 using RestaurantAPI;
 using RestaurantAPI.Entities;
 using RestaurantAPI.Middleware;
+using RestaurantAPI.Models;
+using RestaurantAPI.Models.Validators;
 using RestaurantAPI.Services;
+using System.Text;
 
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 try
 {
     var builder = WebApplication.CreateBuilder(args);
+    var authenticationSettings = new AuthenticationSettings();
 
+    builder.Services.AddSingleton(authenticationSettings);
+    builder.Configuration.Bind("Authentication", authenticationSettings);
     // Add services to the container.
+
+    builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = "Bearer";
+        options.DefaultChallengeScheme = "Bearer";
+        options.DefaultScheme = "Bearer";
+    }).AddJwtBearer(cfg =>
+    {
+        cfg.RequireHttpsMetadata = false;
+        cfg.SaveToken = true;
+        cfg.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidIssuer = authenticationSettings.JwtIssuer,
+            ValidAudience = authenticationSettings.JwtIssuer,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationSettings.JwtKey))
+        };
+    });
 
     builder.Logging.ClearProviders();
     builder.Host.UseNLog();
 
-    builder.Services.AddControllers();
+    builder.Services.AddControllers().AddFluentValidation();
     // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
     builder.Services.AddOpenApi();
 
@@ -26,7 +53,11 @@ try
     builder.Services.AddScoped<ErrorHandlingMiddleware>();
     builder.Services.AddScoped<RequestTimeMiddleware>();
     builder.Services.AddScoped<IDishService, DishService>();
+    builder.Services.AddScoped<IAccountService, AccountService>();
+    builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+    builder.Services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
     builder.Services.AddSwaggerGen();
+
 
     var app = builder.Build();
 
@@ -42,6 +73,8 @@ try
 
     app.UseMiddleware<ErrorHandlingMiddleware>();
     app.UseMiddleware<RequestTimeMiddleware>();
+
+    app.UseAuthentication();
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RestaurantAPI v1"));
     app.UseHttpsRedirection();
