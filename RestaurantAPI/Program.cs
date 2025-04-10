@@ -1,10 +1,13 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.IdentityModel.Tokens;
 using NLog;
 using NLog.Web;
 using RestaurantAPI;
+using RestaurantAPI.Authorization;
 using RestaurantAPI.Entities;
 using RestaurantAPI.Middleware;
 using RestaurantAPI.Models;
@@ -46,6 +49,12 @@ try
     // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
     builder.Services.AddOpenApi();
 
+    builder.Services.AddAuthorization(options =>
+    {
+        options.AddPolicy("Admin", builder => builder.RequireClaim("Nationality", "German", "Polish"));
+        options.AddPolicy("atleast20", builder => builder.AddRequirements(new MinimumAgeRequirement(20)));
+    });
+    builder.Services.AddScoped<IAuthorizationHandler, MinimumAgeRequirementHandler>();
     builder.Services.AddDbContext<RestaurantDbContext>();
     builder.Services.AddScoped<RestaurantSeeder>();
     builder.Services.AddAutoMapper(typeof(RestaurantMappingProfile));
