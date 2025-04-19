@@ -83,7 +83,9 @@ namespace RestaurantAPI.Services
                 Email = dto.Email,
                 DateOfBirth = dto.DateOfBirth,
                 Nationality = dto.Nationality,
-                RoleId = dto.RoleId
+                RoleId = dto.RoleId,
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,               
             };
             var hashedPassword = _passwordHasher.HashPassword(newUser, dto.Password);
 

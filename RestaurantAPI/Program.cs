@@ -53,7 +53,9 @@ try
     {
         options.AddPolicy("Admin", builder => builder.RequireClaim("Nationality", "German", "Polish"));
         options.AddPolicy("atleast20", builder => builder.AddRequirements(new MinimumAgeRequirement(20)));
+        options.AddPolicy("CreatedMinimumTwoRestaurants", builder => builder.AddRequirements(new CreatedMultipleRestaurantsRequirment(2)));
     });
+    builder.Services.AddScoped<IAuthorizationHandler, CreatedMultipleRestaurantsRequirmentHandler>();
     builder.Services.AddScoped<IAuthorizationHandler, MinimumAgeRequirementHandler>();
     builder.Services.AddScoped<IAuthorizationHandler, ResourceOperationRequirementHandler>();
     builder.Services.AddDbContext<RestaurantDbContext>();
@@ -66,6 +68,8 @@ try
     builder.Services.AddScoped<IAccountService, AccountService>();
     builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
     builder.Services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
+    builder.Services.AddScoped<IUserContextService, UserContextService>();
+    builder.Services.AddHttpContextAccessor();
     builder.Services.AddSwaggerGen();
 
 
