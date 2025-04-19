@@ -10,7 +10,7 @@ namespace RestaurantAPI.Entities
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
 
-        private string _connectionString = "Server=localhost\\SQLEXPRESS;Database=RestaurantDb;Trusted_Connection=True;TrustServerCertificate=True";
+        private string _connectionString = "Server=localhost;Database=RestaurantDb;Trusted_Connection=True;TrustServerCertificate=True";
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Restaurant>()

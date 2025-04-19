@@ -11,8 +11,14 @@ namespace RestaurantAPI.Authorization
             _logger = logger;
         }
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, MinimumAgeRequirement requirement)
-        {
-            var dateOfBirth = DateTime.Parse(context.User.FindFirst(c => c.Type == "DateOfBirth").Value);
+        {           
+            var userDateOfBirthClaim = context.User.FindFirst(c => c.Type == "DateOfBirth");
+            if (userDateOfBirthClaim == null)
+            {
+                return Task.CompletedTask;
+            }
+            var dateOfBirth = DateTime.Parse(userDateOfBirthClaim.Value);
+            // dalsza część...
 
             var userEmail = context.User.FindFirst(c => c.Type == ClaimTypes.Name).Value;
 
