@@ -45,14 +45,13 @@ namespace RestaurantAPI.Controllers
         }
 
         [HttpGet]
-        [Authorize]
-        public ActionResult<IEnumerable<RestaurantDto>> GetAll([FromQuery]string searchPhrase)
+        public ActionResult<IEnumerable<RestaurantDto>> GetAll([FromQuery]RestaurantQuery query)
         {           
-            return Ok(_restaurantService.GetAll(searchPhrase));
+            return Ok(_restaurantService.GetAll(query));
         }
         [HttpGet("{Id}")]
         [AllowAnonymous]
-        public ActionResult<RestaurantDto> GetById([FromRoute] int Id)
+        public ActionResult<RestaurantDto> GetById([FromQuery] int Id)
         {
             var restaurantDto = _restaurantService.GetById(Id);
             
